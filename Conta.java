@@ -6,7 +6,7 @@ package br.com.caelum.contas.modelo;
  * @author Joao Marcos
  * @version 1.0
  */
-public abstract class Conta {
+public abstract class Conta implements Comparable<Conta> {
 
 	protected double saldo;
 	private int numero;
@@ -62,7 +62,29 @@ public abstract class Conta {
 	 * @author Joao Marcos
 	 */
 	public void deposita(double valor) {
+		if(valor < 0) {
+			throw new IllegalArgumentException("Voce tentou depositar:" + valor + " Que eh um valor");
+		}
+		else {
 		this.saldo += valor;
+		}
+	}
+	
+	//@Override
+	/*public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}*/
+	
+	@Override
+	public String toString() {
+		return "[titular=" + titular + ", numero=" + numero + ", agencia:" + agencia + "]";
+	}
+	
+	@Override
+	public int compareTo(Conta outraConta) {
+		
+		return this.titular.compareTo(outraConta.titular);
 	}
 	
 	public void saca(double valor){
