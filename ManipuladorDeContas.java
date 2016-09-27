@@ -1,5 +1,6 @@
 package br.com.caelum.contas;
 
+import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,10 +44,27 @@ public class ManipuladorDeContas {
 		Conta destino = (Conta) evento.getSelecionadoNoCombo("destino");
 		conta.transfere(evento.getDouble("valorTransferencia"), destino);
 	}
-	
+
 	public void ordenaLista(Evento evento) {
 		List<Conta> contas = evento.getLista("destino");
 		Collections.sort(contas);
 	}
+
+	//Questao 3 pagina 222
+	public void salvaDados(Evento evento) {
+		List<Conta> contas = evento.getLista("listaContas");
+		RepositorioDeContas repositorio = new RepositorioDeContas();
+		try {
+			repositorio.salva(contas);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Questao 4 pagina 222
+	/*public List<Conta> carregaDados() {
+		RepositorioDeContas repositorio = new RepositorioDeContas();
+		return repositorio.carrega();
+	}*/
 
 }
